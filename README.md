@@ -9,6 +9,21 @@ auth.php
 pagination.php
 passwords.php
 validation.php
+
+sail composer require laravel/breeze:^1 --dev
+sail artisan breeze:install vue
+sail npm install
+sail npm run dev
+
+sail artisan make:controller InertiaTestController
+sail artisan route:list
+
+sail artisan make:model InertiaTest -m
+sail artisan migrate
+
+sail composer require --dev barryvdh/laravel-ide-helper
+sail artisan ide-helper:models --nowrite
+sail artisan ide-helper:generate
 -->
 
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
