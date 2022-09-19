@@ -1,5 +1,7 @@
 import './bootstrap';
 import '../css/app.css';
+import './micromodal'
+import '../css/micromodal.css'
 
 import { createApp, h } from 'vue';
 import { createInertiaApp } from '@inertiajs/inertia-vue3';

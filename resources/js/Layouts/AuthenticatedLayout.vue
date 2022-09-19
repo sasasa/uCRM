@@ -36,6 +36,9 @@ const showingNavigationDropdown = ref(false);
                                 <NavLink :href="route('customers.index')" :active="route().current('customers.index')">
                                     顧客管理
                                 </NavLink>
+                                <NavLink :href="route('purchases.create')" :active="route().current('purchases.create')">
+                                    購入画面
+                                </NavLink>
                             </div>
                         </div>
 
@@ -87,6 +90,9 @@ const showingNavigationDropdown = ref(false);
                         </ResponsiveNavLink>
                         <ResponsiveNavLink :href="route('customers.index')" :active="route().current('customers.index')">
                             顧客管理
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink :href="route('purchases.create')" :active="route().current('purchases.create')">
+                            購入画面
                         </ResponsiveNavLink>
                     </div>
 

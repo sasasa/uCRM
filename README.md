@@ -34,6 +34,12 @@ sail php artisan migrate:fresh --seed
 sail php artisan make:model Customer -a
 
 sail npm i yubinbango-core2@^0.6.3
+
+sail php artisan make:model Purchase -a
+
+sail php artisan make:migration create_item_purchase_table
+
+sail npm i micromodal@0.4.10 --save
 -->
 
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
