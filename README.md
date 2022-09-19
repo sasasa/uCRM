@@ -30,6 +30,10 @@ sail php artisan storage:link
 sail php artisan make:model Item -a
 
 sail php artisan migrate:fresh --seed
+
+sail php artisan make:model Customer -a
+
+sail npm i yubinbango-core2@^0.6.3
 -->
 
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
