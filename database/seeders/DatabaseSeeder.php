@@ -28,7 +28,7 @@ class DatabaseSeeder extends Seeder
         ]);
         \App\Models\Customer::factory(1000)->create();
         $items = \App\Models\Item::all();
-        \App\Models\Purchase::factory(100)->create()->each(function(Purchase $purchase) use ($items){
+        Purchase::factory(20000)->create()->each(function(Purchase $purchase) use ($items){
             $purchase->items()->attach(
                 // 1～3個のitemをpurchaseにランダムに紐づけ
                 $items->random(rand(1,3))->pluck('id')->toArray(),

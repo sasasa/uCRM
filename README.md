@@ -40,6 +40,11 @@ sail php artisan make:model Purchase -a
 sail php artisan make:migration create_item_purchase_table
 
 sail npm i micromodal@0.4.10 --save
+
+sail php artisan make:scope Subtotal
+sail php artisan make:model Order
+
+sail npm i dayjs@1.11.5 --save
 -->
 
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
