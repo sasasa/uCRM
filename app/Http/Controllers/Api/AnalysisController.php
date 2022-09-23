@@ -9,12 +9,25 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use App\Services\AnalysisService; 
 use App\Services\DecileService;
+use App\Services\RFMService;
 
 class AnalysisController extends Controller
 {
     public function index(Request $request)
     {
         $subQuery = Order::betweenDate($request->startDate, $request->endDate);
+        
+        if($request->type === 'rfm') {
+            list($data, $totals, $eachCount) = RFMService::rfm($subQuery, $request->rfmPrms);
+            
+            return response()->json([
+                'data' => $data,
+                'type' => $request->type,
+                'totals' => $totals,
+                'eachCount' => $eachCount,
+            ], Response::HTTP_OK);
+        }
+
         if($request->type === 'perDay') {
             // 配列を受け取り変数に格納するため list() を使う
             list($data, $labels, $totals) = AnalysisService::perDay($subQuery);

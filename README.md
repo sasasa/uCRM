@@ -49,6 +49,9 @@ sail npm i dayjs@1.11.5 --save
 sail php artisan make:controller AnalysisController
 sail php artisan make:controller Api/AnalysisController
 sail npm i vue-chart-3@3.1.8 chart.js@3.9.1 
+
+sail php artisan make:migration create_ranks_table
+sail php artisan make:seed RankSeeder
 -->
 
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
