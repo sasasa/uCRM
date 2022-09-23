@@ -18,13 +18,14 @@ class AnalysisController extends Controller
         $subQuery = Order::betweenDate($request->startDate, $request->endDate);
         
         if($request->type === 'rfm') {
-            list($data, $totals, $eachCount) = RFMService::rfm($subQuery, $request->rfmPrms);
+            list($data, $totals, $eachCount) = RFMService::rfm($subQuery, $request->rfmPrms, $request->axis);
             
             return response()->json([
                 'data' => $data,
                 'type' => $request->type,
                 'totals' => $totals,
                 'eachCount' => $eachCount,
+                'axis' => $request->axis,
             ], Response::HTTP_OK);
         }
 

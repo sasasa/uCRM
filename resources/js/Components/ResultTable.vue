@@ -72,7 +72,7 @@ const props = defineProps({ 'data' : Object })
         </table>
     </div>
     <!-- RとFの集計表 -->
-    <div v-show="data.data" class="lg:w-2/3 w-full mx-auto overflow-auto">
+    <div v-show="data.axis === 'rf'" class="lg:w-2/3 w-full mx-auto overflow-auto">
         <h3 class="text-center text-2xl my-4">RとFの集計表</h3>
         <table class="table-auto w-full text-left whitespace-no-wrap">
           <thead>
@@ -97,5 +97,60 @@ const props = defineProps({ 'data' : Object })
           </tbody>
         </table>
     </div>
-  </div>
+
+    <!-- RとMの集計表 -->
+    <div v-show="data.axis === 'rm'" class="lg:w-2/3 w-full mx-auto overflow-auto">
+        <h3 class="text-center text-2xl my-4">RとMの集計表</h3>
+        <table class="table-auto w-full text-left whitespace-no-wrap">
+          <thead>
+            <tr>
+              <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tl rounded-bl">rRank</th>
+              <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">m_5</th>
+              <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">m_4</th>
+              <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">m_3</th>
+              <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">m_2</th>
+              <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">m_1</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="rm in data.data" :key="rm.rRank">
+              <td class="px-4 py-3">{{ rm.rRank }}</td>
+              <td class="px-4 py-3">{{ rm.m_5 }}</td>
+              <td class="px-4 py-3">{{ rm.m_4 }}</td>
+              <td class="px-4 py-3">{{ rm.m_3 }}</td>
+              <td class="px-4 py-3">{{ rm.m_2 }}</td>
+              <td class="px-4 py-3">{{ rm.m_1 }}</td>
+            </tr>
+          </tbody>
+        </table>
+    </div>
+    
+    <!-- FとMの集計表 -->
+    <div v-show="data.axis === 'fm'" class="lg:w-2/3 w-full mx-auto overflow-auto">
+        <h3 class="text-center text-2xl my-4">FとMの集計表</h3>
+        <table class="table-auto w-full text-left whitespace-no-wrap">
+          <thead>
+            <tr>
+              <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tl rounded-bl">fRank</th>
+              <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">m_5</th>
+              <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">m_4</th>
+              <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">m_3</th>
+              <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">m_2</th>
+              <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">m_1</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="fm in data.data" :key="fm.fRank">
+              <td class="px-4 py-3">{{ fm.fRank }}</td>
+              <td class="px-4 py-3">{{ fm.m_5 }}</td>
+              <td class="px-4 py-3">{{ fm.m_4 }}</td>
+              <td class="px-4 py-3">{{ fm.m_3 }}</td>
+              <td class="px-4 py-3">{{ fm.m_2 }}</td>
+              <td class="px-4 py-3">{{ fm.m_1 }}</td>
+            </tr>
+          </tbody>
+        </table>
+    </div>
+
+</div>
 </template>

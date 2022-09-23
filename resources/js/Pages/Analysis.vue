@@ -13,9 +13,10 @@ const form = useForm({
     type: 'perDay',
     rfmPrms: [
             28, 60, 90, 120,
-            7, 5, 3, 2,
+            6, 5, 4, 3,
             300000, 200000, 100000, 30000
     ],
+    axis: 'rf',
 });
 onMounted(() => {
     form.startDate = getToday()
@@ -30,6 +31,7 @@ const getData = async () => {
                 endDate: form.endDate,
                 type: form.type,
                 rfmPrms: form.rfmPrms,
+                axis: form.axis,
             }
         })
         .then( res => {
@@ -43,6 +45,9 @@ const getData = async () => {
             }
             if(res.data.eachCount) {
                 data.eachCount = res.data.eachCount
+            }
+            if(res.data.axis) {
+                data.axis = res.data.axis
             }
         })
     } catch (e){
@@ -80,6 +85,11 @@ const getData = async () => {
                             <br>
 
                             <div v-if="form.type === 'rfm'">
+                                <select v-model="form.axis">
+                                    <option value="rf">RF軸</option>
+                                    <option value="rm">RM軸</option>
+                                    <option value="fm">FM軸</option>
+                                </select><br>
                                 <table class="mx-auto">
                                     <thead>
                                         <tr>

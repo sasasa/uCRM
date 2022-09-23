@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Log;
 
 class RFMService
 {
-    public static function rfm($subQuery, $rfmPrms)
+    public static function rfm($subQuery, $rfmPrms, $axis)
     {
         // RFM分析
         // 1. 購買ID毎にまとめる
@@ -80,20 +80,47 @@ class RFMService
         ->pluck('count(m)');
 
         // dd($total, $rCount, $fCount, $mCount);
-
         // concatで文字列結合
-        // 6. RとFで2次元で表示してみる
-        $data = DB::table($subQuery)
-        ->rightJoin('ranks', 'ranks.rank', '=', 'r')
-        ->groupBy('rank')
-        ->selectRaw('concat("r_", ranks.rank) as rRank,
-        count(case when f = 5 then 1 end ) as f_5,
-        count(case when f = 4 then 1 end ) as f_4,
-        count(case when f = 3 then 1 end ) as f_3,
-        count(case when f = 2 then 1 end ) as f_2,
-        count(case when f = 1 then 1 end ) as f_1')
-        ->orderBy('rRank', 'desc')
-        ->get();
+        if($axis == 'rf') {
+            // 6. RとFで2次元で表示してみる
+            $data = DB::table($subQuery)
+            ->rightJoin('ranks', 'ranks.rank', '=', 'r')
+            ->groupBy('rank')
+            ->selectRaw('concat("r_", ranks.rank) as rRank,
+            count(case when f = 5 then 1 end ) as f_5,
+            count(case when f = 4 then 1 end ) as f_4,
+            count(case when f = 3 then 1 end ) as f_3,
+            count(case when f = 2 then 1 end ) as f_2,
+            count(case when f = 1 then 1 end ) as f_1')
+            ->orderBy('rRank', 'desc')
+            ->get();
+        } elseif($axis == 'rm') {
+            // 6. RとMで2次元で表示してみる
+            $data = DB::table($subQuery)
+            ->rightJoin('ranks', 'ranks.rank', '=', 'r')
+            ->groupBy('rank')
+            ->selectRaw('concat("r_", ranks.rank) as rRank,
+            count(case when m = 5 then 1 end ) as m_5,
+            count(case when m = 4 then 1 end ) as m_4,
+            count(case when m = 3 then 1 end ) as m_3,
+            count(case when m = 2 then 1 end ) as m_2,
+            count(case when m = 1 then 1 end ) as m_1')
+            ->orderBy('rRank', 'desc')
+            ->get();
+        } elseif($axis == 'fm') {
+            // 6. FとMで2次元で表示してみる
+            $data = DB::table($subQuery)
+            ->rightJoin('ranks', 'ranks.rank', '=', 'f')
+            ->groupBy('rank')
+            ->selectRaw('concat("f_", ranks.rank) as fRank,
+            count(case when m = 5 then 1 end ) as m_5,
+            count(case when m = 4 then 1 end ) as m_4,
+            count(case when m = 3 then 1 end ) as m_3,
+            count(case when m = 2 then 1 end ) as m_2,
+            count(case when m = 1 then 1 end ) as m_1')
+            ->orderBy('fRank', 'desc')
+            ->get();
+        }
 
         // dd($data);
 
@@ -103,9 +130,9 @@ class RFMService
         {
           array_push($eachCount, [
             'rank' => $rank,
-            'r' => isset($rCount[$i]) ? $rCount[$i] : 0,
-            'f' => isset($fCount[$i]) ? $fCount[$i] : 0,
-            'm' => isset($mCount[$i]) ? $mCount[$i] : 0,
+            'r' => $rCount[$i],
+            'f' => $fCount[$i],
+            'm' => $mCount[$i],
         ]);
             $rank--; // rankを1ずつ減らす
         }
