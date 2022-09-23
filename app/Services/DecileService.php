@@ -1,49 +1,12 @@
 <?php
-
-namespace App\Http\Controllers;
-
-use Illuminate\Http\Request;
-use Inertia\Inertia;
-use App\Models\Order;
+namespace App\Services;
 use Illuminate\Support\Facades\DB;
 
-class AnalysisController extends Controller
-{
-    public function index()
+class DecileService{
+    public static function decile($subQuery)
     {
-        // $startDate = '2022-08-01';
-        // $endDate = '2022-08-10';
-        // $period = Order::betweenDate($startDate, $endDate)->groupBy('id')
-        // ->selectRaw('id, sum(subtotal) as total, customer_name, status, created_at')
-        // ->orderBy('created_at')
-        // ->paginate(50);
-        
-        // 期間指定
-        // $startDate = '2022-08-01';
-        // $endDate = '2022-08-31';
-        // // 日別
-        // $subQuery = Order::betweenDate($startDate, $endDate)
-        // ->where('status', true)->groupBy('id')->orderBy('date')
-        // ->selectRaw('id, SUM(subtotal) as totalPerPurchase, DATE_FORMAT(created_at, "%Y%m%d") as date');
-
-        // $data = DB::table($subQuery)
-        // ->groupBy('date')
-        // ->selectRaw('date, sum(totalPerPurchase) as total')
-        // ->orderBy('date')
-        // ->get();
-        
-        return Inertia::render('Analysis', [
-            // 'period' => $period
-        ]);
-    }
-
-    public function decile()
-    {
-        $startDate = '2022-08-01';
-        $endDate = '2022-08-31';
         // 1. 購買ID毎にまとめる
-        $subQuery = Order::betweenDate($startDate, $endDate)
-        ->groupBy('id')
+        $subQuery = $subQuery->groupBy('id')
         ->selectRaw('id, customer_id, customer_name, SUM(subtotal) as totalPerPurchase');
 
         // 2. 会員毎にまとめて購入金額順にソートする
@@ -108,12 +71,18 @@ class AnalysisController extends Controller
         // 構成比を出すために変数を使う
         // 7 構成比
         DB::statement("set @total = ${total} ;");
+        
         $data = DB::table($subQuery)->selectRaw('
         decile,
         average,
         totalPerGroup,
         round(100 * totalPerGroup / @total, 1) as totalRatio')->get();
 
-        dd($data);
+        $labels = $data->pluck('decile');
+        $totals = $data->pluck('totalPerGroup');
+
+        return [
+            $data, $labels, $totals,
+        ];
     }
 }

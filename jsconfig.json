@@ -4,7 +4,8 @@
         "paths": {
             "@/*": ["resources/js/*"]
         },
-        "jsx": "preserve"
+        "jsx": "preserve",
+        "checkJs": false,
     },
     "exclude": ["node_modules", "public"]
 }
