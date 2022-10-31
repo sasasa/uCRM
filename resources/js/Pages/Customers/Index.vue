@@ -8,14 +8,15 @@
   import Pagination from '@/Components/Pagination.vue'
   
   const props = defineProps({
-    'customers' : Object
+    'customers' : Object,
+    'search': String,
   })
 
   onMounted(() => { //ページが表示されたタイミングで実行
     console.log(props.customers)
   })
 
-  const search = ref('')
+  const search = ref(props.search)
   // ref の値を取得するには .valueが必要
   const searchCustomers = () => {
     Inertia.get(route('customers.index', { search: search.value }))
