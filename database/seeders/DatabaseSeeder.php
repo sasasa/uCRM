@@ -5,6 +5,8 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Purchase;
+use App\Models\Customer;
+use App\Models\Item;
 
 class DatabaseSeeder extends Seeder
 {
@@ -26,8 +28,8 @@ class DatabaseSeeder extends Seeder
             ItemSeeder::class,
             RankSeeder::class,
         ]);
-        \App\Models\Customer::factory(1000)->create();
-        $items = \App\Models\Item::all();
+        Customer::factory(1000)->create();
+        $items = Item::all();
         Purchase::factory(20000)->create()->each(function(Purchase $purchase) use ($items){
             $purchase->items()->attach(
                 // 1～3個のitemをpurchaseにランダムに紐づけ
