@@ -10,4 +10,11 @@ const getToday = () => {
   const dd = ("0"+today.getDate()).slice(-2);
   return yyyy+'-'+mm+'-'+dd;
 }
-export { nl2br, getToday }
+const getOneYearAgo = () => {
+  const today = new Date();
+  const yyyy = today.getFullYear() - 1;
+  const mm = ("0"+(today.getMonth()+1)).slice(-2);
+  const dd = ("0"+today.getDate()).slice(-2);
+  return yyyy+'-'+mm+'-'+dd;
+}
+export { nl2br, getToday, getOneYearAgo }

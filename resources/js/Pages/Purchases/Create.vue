@@ -1,6 +1,6 @@
 <script setup>
   import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-  import { Head, useForm } from '@inertiajs/inertia-vue3';
+  import { Head, useForm, Link } from '@inertiajs/inertia-vue3';
   import { Inertia } from '@inertiajs/inertia'
   import { onMounted, reactive, ref, computed } from 'vue'
   import { getToday } from '@/common' // 別ファイルをインポート
@@ -47,6 +47,7 @@
     })
     form.post(route('purchases.store'), {
         // onFinish: () => form.reset(),
+        onError: () => form.items = []
     })
   }
 
@@ -74,9 +75,14 @@
                               <div class="flex flex-wrap -m-2">
                                 <div class="p-2 w-full">
                                   <div class="relative">
+                                    <Link as="button" :href="route('purchases.index')" class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">購入一覧</Link>
+
                                     <label for="date" class="leading-7 text-sm text-gray-600">日付</label>
                                     <input type="date" id="date" name="date" v-model="form.date" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                     <InputError class="mt-2" :message="form.errors.date" />
+                                    <InputError class="mt-2" :message="form.errors.customer_id" />
+                                    <InputError class="mt-2" :message="form.errors.status" />
+                                    <InputError class="mt-2" :message="form.errors.items" />
                                   </div>
                                 </div>
                                 
@@ -111,7 +117,7 @@
                                         <td class="px-4 py-3">{{ item.price }}</td>
                                         <td class="px-4 py-3">
                                           <select name="quantity" v-model="item.quantity">
-                                            <option v-for="q in quantity" :value="q">{{ q }}</option>
+                                            <option v-for="q in quantity" :value="q" :key="q">{{ q }}</option>
                                           </select>
                                         </td>
                                         <td class="px-4 py-3">

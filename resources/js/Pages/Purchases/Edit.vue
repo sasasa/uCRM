@@ -44,6 +44,7 @@
     })
     form.put(route('purchases.update', { purchase: props.order.id }), {
         // onFinish: () => form.reset(),
+        onError: () => form.items = []
     })
   }
 </script>
@@ -71,6 +72,10 @@
                                   <div class="relative">
                                     <label for="date" class="leading-7 text-sm text-gray-600">日付</label>
                                     <input disabled type="date" id="date" name="date" :value="form.date" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                    <InputError class="mt-2" :message="form.errors.date" />
+                                    <InputError class="mt-2" :message="form.errors.customer_id" />
+                                    <InputError class="mt-2" :message="form.errors.status" />
+                                    <InputError class="mt-2" :message="form.errors.items" />
                                   </div>
                                 </div>
                                 
@@ -99,7 +104,7 @@
                                         <td class="px-4 py-3">{{ item.price }}</td>
                                         <td class="px-4 py-3">
                                           <select name="quantity" v-model="item.quantity">
-                                            <option v-for="q in quantity" :value="q">{{ q }}</option>
+                                            <option v-for="q in quantity" :value="q" :key="q">{{ q }}</option>
                                           </select>
                                         </td>
                                         <td class="px-4 py-3">

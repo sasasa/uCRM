@@ -29,6 +29,7 @@ sail php artisan storage:link
 
 sail php artisan make:model Item -a
 
+sail down --rmi all -v
 sail php artisan migrate:fresh --seed
 
 sail php artisan make:model Customer -a

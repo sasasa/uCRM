@@ -2,7 +2,7 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, useForm } from '@inertiajs/inertia-vue3';
 import { reactive, onMounted } from 'vue'
-import { getToday } from '@/common'
+import { getToday, getOneYearAgo } from '@/common'
 
 import Chart from '@/Components/Chart.vue'
 import ResultTable from '@/Components/ResultTable.vue'
@@ -19,7 +19,7 @@ const form = useForm({
     axis: 'rf',
 });
 onMounted(() => {
-    form.startDate = getToday()
+    form.startDate = getOneYearAgo()
     form.endDate = getToday()
 })
 const data = reactive({})
