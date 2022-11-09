@@ -53,6 +53,11 @@ sail npm i vue-chart-3@3.1.8 chart.js@3.9.1
 
 sail php artisan make:migration create_ranks_table
 sail php artisan make:seed RankSeeder
+
+docker-compose run --rm schemaspy
+
+sail composer require --dev nunomaduro/larastan
+sail exec laravel.test  ./vendor/bin/phpstan analyse --memory-limit=1G
 -->
 
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
