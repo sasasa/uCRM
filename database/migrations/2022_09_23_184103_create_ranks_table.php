@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('ranks', function (Blueprint $table) {
-            $table->integer('rank');
+            $table->integer('rank')->comment('ランク');
         });
     }
 

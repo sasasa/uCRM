@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('purchases', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('customer_id')->constrained()->onUpdate('cascade');
-            $table->boolean('status');
+            $table->foreignId('customer_id')->constrained()->onUpdate('cascade')->comment('購入者ID');
+            $table->boolean('status')->comment('購入ステータス');
             $table->timestamps();
         });
     }

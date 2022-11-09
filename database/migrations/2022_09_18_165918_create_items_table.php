@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('items', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('memo')->nullable();
-            $table->integer('price');
-            $table->boolean('is_selling')->default(true);
+            $table->string('name')->comment('商品名');
+            $table->string('memo')->nullable()->comment('商品詳細');
+            $table->integer('price')->comment('商品価格');
+            $table->boolean('is_selling')->default(true)->comment('商品販売フラグ');
             $table->timestamps();
         });
     }
