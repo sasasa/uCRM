@@ -1,6 +1,14 @@
 # For more information: https://laravel.com/docs/sail
 version: '3'
 services:
+    schemaspy:
+        build: schemaspy
+        volumes:
+        - ./output:/output
+        networks:
+            - sail
+        depends_on:
+            - mysql
     laravel.test:
         build:
             context: ./vendor/laravel/sail/runtimes/8.1
@@ -99,7 +107,6 @@ services:
     #         - '/dev/shm:/dev/shm'
     #     networks:
     #         - sail
-
 networks:
     sail:
         driver: bridge
