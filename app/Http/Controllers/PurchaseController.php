@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StorePurchaseRequest;
+// use App\Http\Requests\StorePurchaseRequest;
+use App\Data\StorePurchaseRequest;
 use App\Http\Requests\UpdatePurchaseRequest;
 use App\Models\Purchase;
 use App\Models\Customer;
@@ -46,8 +47,7 @@ class PurchaseController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StorePurchaseRequest  $request
+     * @param  \App\Data\StorePurchaseRequest  $request
      * @return \Illuminate\Http\Response
      */
     public function store(StorePurchaseRequest $request)
@@ -59,8 +59,8 @@ class PurchaseController extends Controller
                 'status' => $request->status,
             ]);
             foreach($request->items as $item) {
-                $purchase->items()->attach( $item['id'], [
-                    'quantity' => $item['quantity']
+                $purchase->items()->attach( $item->id, [
+                    'quantity' => $item->quantity
                 ]);
             }
 
